@@ -4,18 +4,20 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { I18nextProvider } from 'react-i18next';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
+import i18n from '../src/config/i18n';
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
+  ErrorBoundary
 } from 'expo-router';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'index',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -49,11 +51,26 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <I18nextProvider i18n={i18n}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="provider/[id]" options={{ headerShown: true }} />
+          <Stack.Screen name="messages/[id]" options={{ headerShown: true }} />
+          <Stack.Screen name="notifications" options={{ headerShown: true }} />
+          <Stack.Screen name="profile/edit" options={{ headerShown: true }} />
+          <Stack.Screen name="profile/settings" options={{ headerShown: true }} />
+          <Stack.Screen name="profile/favorites" options={{ headerShown: true }} />
+          <Stack.Screen name="profile/subscription" options={{ headerShown: true }} />
+          <Stack.Screen name="profile/gigs" options={{ headerShown: true }} />
+          <Stack.Screen name="faq" options={{ headerShown: true }} />
+          <Stack.Screen name="payment/plans" options={{ headerShown: true }} />
+          <Stack.Screen name="payment/webview" options={{ headerShown: true }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack>
+      </ThemeProvider>
+    </I18nextProvider>
   );
 }

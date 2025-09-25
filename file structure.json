@@ -1,0 +1,142 @@
+{
+  "projet": "Servuxi - Application mobile",
+  "version_document": "1.3.0 (Blueprint Complet - Intégration SMS & Paiements Détaillés)",
+  "langues": ["fr", "ar"],
+  "framework": "React Native (Expo)",
+  "navigation_library": "expo-router",
+  "state_management": "Zustand",
+  "http_client": "Axios",
+  "backend_api": "API unique Laravel sécurisée (conforme aux rapports)",
+  "i18n": {
+    "packages": ["i18next", "react-i18next", "expo-localization"],
+    "fichiers_traduction": ["fr.json", "ar.json"],
+    "support_RTL": true,
+    "langue_par_defaut": "fr",
+    "switch_langue": "stockée dans Zustand + AsyncStorage"
+  },
+  "packages_a_installer": [
+    "expo",
+    "react-native",
+    "expo-router",
+    "zustand",
+    "axios",
+    "expo-secure-store",
+    "expo-localization",
+    "i18next",
+    "react-i18next",
+    "firebase",
+    "@react-native-firebase/app",
+    "@react-native-firebase/auth",
+    "@react-native-async-storage/async-storage",
+    "expo-notifications",
+    "expo-image-picker",
+    "expo-location",
+    "react-native-maps",
+    "@expo/vector-icons",
+    "react-native-reanimated",
+    "react-native-gesture-handler",
+    "react-native-safe-area-context",
+    "react-native-screens",
+    "expo-linking",
+    "react-native-webview",
+    "socket.io-client",
+    "@react-native-picker/picker",
+    "react-hook-form",
+    "expo-image-picker",
+    "@react-native-community/datetimepicker"
+  ],
+  "screens": {
+    "auth_flow": [
+      { "path": "/", "description": "Écran de bienvenue/onboarding" },
+      { "path": "/login", "description": "Formulaire de connexion" },
+      { "path": "/register", "description": "Formulaire d'inscription initial" },
+      { "path": "/verify-phone", "description": "Écran de saisie du code de vérification SMS" },
+      { "path": "/forgot-password", "description": "Procédure de réinitialisation du mot de passe" }
+    ],
+    "main_tabs_flow": [
+      { "path": "/(tabs)/home", "description": "Accueil : Catégories, prestataires en vedette" },
+      { "path": "/(tabs)/search", "description": "Écran de recherche avec filtres" },
+      { "path": "/(tabs)/messages", "description": "Liste des conversations" },
+      { "path": "/(tabs)/profile", "description": "Profil de l'utilisateur connecté" }
+    ],
+    "nested_screens": [
+      { "path": "/provider/[id]", "description": "Page de profil publique d'un prestataire" },
+      { "path": "/messages/[id]", "description": "Vue détaillée d'une conversation (chat)" },
+      { "path": "/notifications", "description": "Liste des notifications" },
+      { "path": "/profile/edit", "description": "Formulaire d'édition du profil" },
+      { "path": "/profile/settings", "description": "Paramètres du compte" },
+      { "path": "/profile/favorites", "description": "Liste des prestataires favoris" },
+      { "path": "/profile/subscription", "description": "Gestion de l'abonnement du prestataire" },
+      { "path": "/profile/gigs", "description": "Liste des services publiés par le prestataire" },
+      { "path": "/profile/gigs/edit/[id]", "description": "Formulaire de création/édition d'un service" },
+      { "path": "/faq", "description": "Page d'aide" },
+      { "path": "/payment/plans", "description": "Écran de sélection du plan d'abonnement pour le prestataire" },
+      { "path": "/payment/webview", "description": "Écran contenant la WebView pour la passerelle de paiement CMI" }
+    ]
+  },
+  "forms": {
+    "registerForm": [
+      { "name": "userType", "label_fr": "Vous êtes", "type": "Select", "options": ["Client", "Prestataire"], "validation": "required" },
+      { "name": "firstName", "label_fr": "Prénom", "type": "TextInput", "validation": "required|string|min:2" },
+      { "name": "lastName", "label_fr": "Nom", "type": "TextInput", "validation": "required|string|min:2" },
+      { "name": "email", "label_fr": "Email", "type": "EmailInput", "validation": "required|email|unique" },
+      { "name": "phone", "label_fr": "Téléphone", "type": "PhoneInput", "validation": "required|phone:MA|unique" },
+      { "name": "password", "label_fr": "Mot de passe", "type": "PasswordInput", "validation": "required|min:8" },
+      { "name": "acceptCGU", "label_fr": "J'accepte les Conditions Générales d'Utilisation", "type": "Checkbox", "validation": "required|accepted" }
+    ],
+    "verifyPhoneForm": [
+        { "name": "code", "label_fr": "Code à 6 chiffres", "type": "OTPInput", "validation": "required|digits:6" }
+    ],
+    "providerProfileForm": [
+      { "name": "profilePicture", "label_fr": "Photo de profil", "type": "ImagePicker", "validation": "optional|image|max:2048" },
+      { "name": "birthDate", "label_fr": "Date de naissance", "type": "DatePicker", "validation": "required|date" },
+      { "name": "city", "label_fr": "Ville", "type": "Select", "source": "api", "validation": "required" },
+      { "name": "address", "label_fr": "Adresse", "type": "TextInput", "validation": "optional|string" },
+      { "name": "bio", "label_fr": "Description (bio)", "type": "TextArea", "validation": "required|string|min:100" },
+      { "name": "experienceYears", "label_fr": "Années d'expérience", "type": "Select", "options": ["1-4", "5-9", "10-14", "15+"], "validation": "required" },
+      { "name": "cinDocument", "label_fr": "Pièce d'identité (CIN)", "type": "FilePicker", "validation": "optional|file|mimes:pdf,jpg,png|max:4096" },
+      { "name": "portfolio", "label_fr": "Portfolio", "type": "MultipleImagePicker", "validation": "optional|array|max:5" },
+      { "name": "workHours", "label_fr": "Horaires de travail", "type": "Repeater", "fields": ["jour", "heure_debut", "heure_fin"], "validation": "optional" }
+    ]
+  },
+  "features": {
+    "smsVerification": {
+      "description": "Validation du numéro de téléphone à l'inscription. L'app utilise le SDK Firebase Auth pour envoyer un code, l'utilisateur le saisit, l'app le vérifie auprès de Firebase, puis envoie le token de validation à l'API Laravel pour finaliser la création du compte.",
+      "source": ""
+    },
+    "providerSubscriptions": {
+      "description": "MODÈLE ACTUEL (MVP): Les prestataires paient un abonnement pour être listés. Le paiement est géré par notre API Laravel et une passerelle marocaine (via WebView). C'est le seul flux transactionnel de la V1.",
+      "source": ""
+    },
+    "intelligentSearch": { "description": "Recherche instantanée et tolérante aux fautes de frappe via l'API Laravel qui utilise Algolia.", "source": "" },
+    "geolocationSearch": { "description": "Filtre de recherche 'le plus proche' basé sur la distance, calculée efficacement côté serveur avec PostGIS.", "source": "" },
+    "realTimeMessaging": { "description": "Messagerie instantanée entre client et prestataire utilisant une connexion WebSocket (via Laravel Reverb).", "source": "" },
+    "providerVerification": { "description": "Processus de validation manuelle de la CIN par un admin pour l'attribution du badge de confiance 'vérifié'.", "source": "" }
+  },
+  "api_endpoints": {
+    "auth": ["/auth/login", "/auth/register", "/auth/me", "/auth/firebase-token"],
+    "sms_verification": ["/auth/phone/verify-token"],
+    "provider_subscription": ["/subscriptions/plans", "/subscriptions/initiate-payment", "/subscriptions/payment-callback"],
+    "prestataires": ["/prestataires", "/prestataires/{id}"],
+    "platform_data": ["/platform/categories", "/platform/cities", "/platform/faqs"],
+    "messages": ["/messages", "/messages/{conversationId}"],
+    "notifications": ["/notifications/register-device", "/notifications"]
+  },
+  "flux_utilisateur": {
+    "inscription_verifiee": "POST /auth/register -> Redirection vers /verify-phone -> Saisie code -> Validation Firebase -> POST /auth/phone/verify-token vers Laravel -> Création finale du compte -> Connexion",
+    "souscription_prestataire": "Prestataire choisit un plan sur /payment/plans -> POST /subscriptions/initiate-payment -> Ouverture WebView avec URL CMI -> Paiement -> Callback CMI vers API Laravel -> Activation de l'abonnement -> Confirmation au client"
+  },
+  "evolution_roadmap": {
+      "phase_1_mvp": {
+          "objectif": "Lancement et validation du modèle de mise en relation.",
+          "modele_economique": "Abonnement des prestataires.",
+          "fonctionnalites_clés": ["Inscription/Connexion (Email+SMS)", "Profils Prestataires/Clients", "Recherche simple", "Messagerie", "Système d'abonnement"]
+      },
+      "phase_2_marketplace": {
+          "objectif": "Devenir une plateforme transactionnelle complète.",
+          "modele_economique": "Commission sur les transactions entre clients et prestataires.",
+          "defis_techniques": "Implémentation d'une solution de paiement tierce (type Stripe Connect) pour la répartition automatique des paiements, gestion des litiges, système de séquestre (escrow).",
+          "nouveaux_endpoints_api": ["/orders/create", "/orders/{id}/pay", "/payouts/request"]
+      }
+  }
+}
