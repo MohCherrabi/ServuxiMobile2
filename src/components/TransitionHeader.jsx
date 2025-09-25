@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, {
     Easing,
     interpolate,
@@ -12,6 +12,26 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const logo = require('../../assets/images/servuxiLogo.png');
+
+// Composant d'icône de retour avec fallback
+const BackIcon = ({ size = 24, color = "#FFFFFF" }) => {
+  try {
+    return <Ionicons name="arrow-back" size={size} color={color} />;
+  } catch (error) {
+    // Fallback si Ionicons ne fonctionne pas
+    return (
+      <Text style={{ 
+        fontSize: size - 2, 
+        color, 
+        fontWeight: 'bold',
+        textAlign: 'center',
+        lineHeight: size 
+      }}>
+        ←
+      </Text>
+    );
+  }
+};
 
 export default function TransitionHeader({ showBackButton = true, startTransition = false }) {
   const router = useRouter();
@@ -108,14 +128,15 @@ export default function TransitionHeader({ showBackButton = true, startTransitio
         <>
           {/* Colonne de Gauche */}
           <View style={styles.sideContainer}>
-            {showBackButton && router.canGoBack() && (
+            {showBackButton && (
               <Animated.View style={animatedBackButtonStyle}>
                 <TouchableOpacity 
                   onPress={() => router.back()} 
                   style={styles.backButton}
                   hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  activeOpacity={0.8}
                 >
-                  <Ionicons name="arrow-back" size={24} color="#333" />
+                  <BackIcon size={24} color="#FFFFFF" />
                 </TouchableOpacity>
               </Animated.View>
             )}
@@ -165,14 +186,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   sideContainer: {
-    width: 44,
+    width: 50,
     justifyContent: 'center',
     alignItems: 'flex-start',
+    paddingLeft: 4,
   },
   backButton: {
-    padding: 10,
-    borderRadius: 25,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: '#6B7280', // Gris foncé comme dans l'image
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -180,9 +203,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 6,
   },
   centerContainer: {
     flex: 1,
