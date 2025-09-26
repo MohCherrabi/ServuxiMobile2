@@ -44,6 +44,24 @@
             "count": 85
           },
           "is_verified": true,
+          "anciennete": 15,
+          "years_of_experience": "15+ ans",
+          "created_date": "2010-03-15T00:00:00Z",
+          "join_date": "2010-03-15",
+          "distance_km": 5,
+          "available_now": true,
+          "last_active": "2025-09-26T09:30:00Z",
+          "category": "Droit & Justice",
+          "keywords": ["avocat", "droit", "juridique", "conseil", "affaires", "immobilier"],
+          "working_hours": {
+            "lundi": "09:00 - 18:00",
+            "mardi": "09:00 - 18:00",
+            "mercredi": "09:00 - 18:00",
+            "jeudi": "09:00 - 18:00",
+            "vendredi": "09:00 - 13:00",
+            "samedi": "Fermé",
+            "dimanche": "Fermé"
+          },
           "bio_snippet": "Spécialisée en droit des affaires et immobilier. Plus de 15 ans d'expérience pour vous conseiller..."
         },
         {
@@ -57,6 +75,24 @@
             "count": 120
           },
           "is_verified": true,
+          "anciennete": 8,
+          "years_of_experience": "8 ans",
+          "created_date": "2017-06-20T00:00:00Z",
+          "join_date": "2017-06-20",
+          "distance_km": 87,
+          "available_now": false,
+          "last_active": "2025-09-26T08:15:00Z",
+          "category": "Technologie",
+          "keywords": ["développeur", "web", "mobile", "programmation", "application", "site", "laravel", "flutter"],
+          "working_hours": {
+            "lundi": "10:00 - 19:00",
+            "mardi": "10:00 - 19:00",
+            "mercredi": "10:00 - 19:00",
+            "jeudi": "10:00 - 19:00",
+            "vendredi": "10:00 - 19:00",
+            "samedi": "10:00 - 15:00",
+            "dimanche": "Fermé"
+          },
           "bio_snippet": "Création d'applications modernes et performantes avec Laravel, Vue.js et Flutter..."
         },
         {
@@ -70,7 +106,180 @@
             "count": 213
           },
           "is_verified": false,
+          "anciennete": 12,
+          "years_of_experience": "12 ans",
+          "created_date": "2013-09-10T00:00:00Z",
+          "join_date": "2013-09-10",
+          "distance_km": 240,
+          "available_now": true,
+          "last_active": "2025-09-26T10:45:00Z",
+          "category": "Santé",
+          "keywords": ["médecin", "pédiatre", "enfant", "santé", "consultation", "urgence", "docteur"],
+          "working_hours": {
+            "lundi": "08:00 - 17:00",
+            "mardi": "08:00 - 17:00",
+            "mercredi": "08:00 - 17:00",
+            "jeudi": "08:00 - 17:00",
+            "vendredi": "08:00 - 12:00",
+            "samedi": "Fermé",
+            "dimanche": "Fermé"
+          },
           "bio_snippet": "Suivi du développement de l'enfant, urgences pédiatriques et conseils aux parents..."
+        },
+        {
+          "user_id": 411,
+          "name": "Hassan Mejdoubi",
+          "specialty": "Plombier Expert",
+          "city": "Casablanca",
+          "profile_picture_url": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          "rating": {
+            "average": 4.7,
+            "count": 156
+          },
+          "is_verified": true,
+          "anciennete": 20,
+          "years_of_experience": "20+ ans",
+          "created_date": "2005-01-20T00:00:00Z",
+          "join_date": "2005-01-20",
+          "distance_km": 8,
+          "available_now": true,
+          "last_active": "2025-09-26T11:20:00Z",
+          "category": "Travaux & Services à Domicile",
+          "keywords": ["plombier", "dépannage", "installation", "réparation", "urgence", "eau", "tuyaux"],
+          "working_hours": {
+            "lundi": "07:00 - 19:00",
+            "mardi": "07:00 - 19:00",
+            "mercredi": "07:00 - 19:00",
+            "jeudi": "07:00 - 19:00",
+            "vendredi": "07:00 - 19:00",
+            "samedi": "08:00 - 16:00",
+            "dimanche": "09:00 - 13:00"
+          },
+          "bio_snippet": "Plus de 20 ans d'expérience en plomberie. Interventions rapides et garanties..."
+        },
+        {
+          "user_id": 512,
+          "name": "Samira Benali",
+          "specialty": "Professeure de Mathématiques",
+          "city": "Rabat",
+          "profile_picture_url": "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          "rating": {
+            "average": 4.6,
+            "count": 78
+          },
+          "is_verified": true,
+          "anciennete": 6,
+          "years_of_experience": "6 ans",
+          "created_date": "2019-04-12T00:00:00Z",
+          "join_date": "2019-04-12",
+          "distance_km": 87,
+          "available_now": false,
+          "last_active": "2025-09-25T20:30:00Z",
+          "category": "Education",
+          "keywords": ["professeur", "mathématiques", "cours", "soutien", "école", "formation", "enseignement"],
+          "working_hours": {
+            "lundi": "14:00 - 20:00",
+            "mardi": "14:00 - 20:00",
+            "mercredi": "14:00 - 20:00",
+            "jeudi": "14:00 - 20:00",
+            "vendredi": "14:00 - 18:00",
+            "samedi": "09:00 - 17:00",
+            "dimanche": "09:00 - 17:00"
+          },
+          "bio_snippet": "Cours particuliers et soutien scolaire en mathématiques pour tous niveaux..."
+        },
+        {
+          "user_id": 613,
+          "name": "Youssef Tazi",
+          "specialty": "Électricien Agréé",
+          "city": "Fès",
+          "profile_picture_url": "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          "rating": {
+            "average": 4.4,
+            "count": 92
+          },
+          "is_verified": true,
+          "anciennete": 3,
+          "years_of_experience": "3 ans",
+          "created_date": "2022-08-05T00:00:00Z",
+          "join_date": "2022-08-05",
+          "distance_km": 300,
+          "available_now": true,
+          "last_active": "2025-09-26T09:15:00Z",
+          "category": "Travaux & Services à Domicile",
+          "keywords": ["électricien", "installation", "dépannage", "électricité", "urgence", "câblage"],
+          "working_hours": {
+            "lundi": "08:00 - 18:00",
+            "mardi": "08:00 - 18:00",
+            "mercredi": "08:00 - 18:00",
+            "jeudi": "08:00 - 18:00",
+            "vendredi": "08:00 - 18:00",
+            "samedi": "08:00 - 14:00",
+            "dimanche": "Fermé"
+          },
+          "bio_snippet": "Installations électriques et dépannages d'urgence. Certifié et assuré..."
+        },
+        {
+          "user_id": 714,
+          "name": "Leila Charaf",
+          "specialty": "Kinésithérapeute",
+          "city": "Marrakech",
+          "profile_picture_url": "https://images.pexels.com/photos/3779448/pexels-photo-3779448.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          "rating": {
+            "average": 4.9,
+            "count": 164
+          },
+          "is_verified": true,
+          "anciennete": 10,
+          "years_of_experience": "10 ans",
+          "created_date": "2015-11-18T00:00:00Z",
+          "join_date": "2015-11-18",
+          "distance_km": 240,
+          "available_now": false,
+          "last_active": "2025-09-26T07:45:00Z",
+          "category": "Santé",
+          "keywords": ["kinésithérapeute", "rééducation", "massage", "thérapie", "sport", "récupération"],
+          "working_hours": {
+            "lundi": "08:30 - 18:30",
+            "mardi": "08:30 - 18:30",
+            "mercredi": "08:30 - 18:30",
+            "jeudi": "08:30 - 18:30",
+            "vendredi": "08:30 - 16:00",
+            "samedi": "09:00 - 13:00",
+            "dimanche": "Fermé"
+          },
+          "bio_snippet": "Rééducation et thérapie manuelle. Spécialisée en sport et récupération..."
+        },
+        {
+          "user_id": 815,
+          "name": "Omar Benjelloun",
+          "specialty": "Designer Graphique",
+          "city": "Casablanca",
+          "profile_picture_url": "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          "rating": {
+            "average": 4.5,
+            "count": 73
+          },
+          "is_verified": false,
+          "anciennete": 4,
+          "years_of_experience": "4 ans",
+          "created_date": "2021-07-14T00:00:00Z",
+          "join_date": "2021-07-14",
+          "distance_km": 12,
+          "available_now": true,
+          "last_active": "2025-09-26T11:00:00Z",
+          "category": "Technologie",
+          "keywords": ["designer", "graphique", "logo", "création", "visuel", "branding", "marketing"],
+          "working_hours": {
+            "lundi": "09:00 - 18:00",
+            "mardi": "09:00 - 18:00",
+            "mercredi": "09:00 - 18:00",
+            "jeudi": "09:00 - 18:00",
+            "vendredi": "09:00 - 18:00",
+            "samedi": "Fermé",
+            "dimanche": "Fermé"
+          },
+          "bio_snippet": "Création de logos, identités visuelles et supports marketing pour entreprises..."
         }
       ]
     },
@@ -156,6 +365,7 @@
       {
         "id": 1270,
         "name": "Santé",
+        "icon": "medical-outline",
         "sub_categories": [
           {
             "id": 1271,
@@ -177,8 +387,57 @@
         ]
       },
       {
+        "id": 1308,
+        "name": "Droit & Justice",
+        "icon": "library-outline",
+        "sub_categories": [
+          {
+            "id": 1309,
+            "name": "Avocats",
+            "sub_categories": [
+              { "id": 11, "name": "Avocat d'affaires" },
+              { "id": 12, "name": "Avocat immobilier" },
+              { "id": 13, "name": "Avocat pénaliste" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1314,
+        "name": "Technologie",
+        "icon": "laptop-outline",
+        "sub_categories": [
+          {
+            "id": 1315,
+            "name": "Développement",
+            "sub_categories": [
+              { "id": 14, "name": "Développeur Web" },
+              { "id": 15, "name": "Développeur Mobile" },
+              { "id": 16, "name": "Designer Graphique" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1316,
+        "name": "Education",
+        "icon": "school-outline",
+        "sub_categories": [
+          {
+            "id": 1317,
+            "name": "Soutien Scolaire",
+            "sub_categories": [
+              { "id": 17, "name": "Mathématiques" },
+              { "id": 18, "name": "Français" },
+              { "id": 19, "name": "Sciences" }
+            ]
+          }
+        ]
+      },
+      {
         "id": 1318,
         "name": "Travaux & Services à Domicile",
+        "icon": "hammer-outline",
         "sub_categories": [
           {
             "id": 1319,

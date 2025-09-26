@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { usePermissions } from '../../src/hooks/usePermissions';
+import { apiService, handleApiResponse } from '../../src/services/apiService';
 
 const logo = require('../../assets/images/servuxiLogo.png');
-const data = require('../../assets/data.json');
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -34,17 +34,20 @@ export default function HomeScreen() {
   const loadDataFromAPIs = async () => {
     setLoading(true);
     try {
-      // Simulation d'appels API avec les données JSON
-      // TODO: Remplacer par vos vrais appels d'API plus tard
+      // Using API service - easily replaceable with real API calls later
+      // TODO: Just change the endpoints in apiService.js when APIs are ready
+      
+      const response = await apiService.getHomeData();
+      const data = handleApiResponse(response);
       
       // Services populaires
-      setPopularServices(data.homeScreen.popularServices);
+      setPopularServices(data.popularServices || []);
       
       // Prestataires récemment ajoutés (utilise les featured providers)
-      setRecentlyAdded(data.homeScreen.featuredProviders);
+      setRecentlyAdded(data.featuredProviders || []);
       
       // Basé sur l'historique (utilise les mêmes providers pour la démo)
-      setBasedOnHistory(data.homeScreen.featuredProviders);
+      setBasedOnHistory(data.featuredProviders || []);
       
     } catch (error) {
       console.error('Erreur lors du chargement des données:', error);
@@ -392,6 +395,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: 220,
     minHeight: 180,
+    
   },
   // Service card styles
   serviceCard: {
@@ -439,11 +443,7 @@ const styles = StyleSheet.create({
     padding: 20,
     width: 220,
     justifyContent: 'flex-start',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 10,
+    
   },
   providerImage: {
     width: 60,
@@ -494,3 +494,4 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
 });
+
