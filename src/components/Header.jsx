@@ -1,7 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { I18nManager, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const logo = require('../../assets/images/servuxiLogo.png');
@@ -16,6 +17,8 @@ export default function Header({
 }) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { i18n } = useTranslation();
+  const isRTL = I18nManager.isRTL;
 
   const handleNotificationPress = () => {
     if (onNotificationPress) {
@@ -36,7 +39,8 @@ export default function Header({
         paddingTop,
         paddingBottom,
         minHeight: isAuthVariant ? 100 : 'auto',
-        marginBottom: isAuthVariant ? -10 : 0
+        marginBottom: isAuthVariant ? -10 : 0,
+        flexDirection: isRTL ? 'row-reverse' : 'row'
       }
     ]}>
       {/* Bouton retour ou espace */}
@@ -52,7 +56,7 @@ export default function Header({
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
             <Ionicons 
-              name="arrow-back" 
+              name={isRTL ? "arrow-forward" : "arrow-back"} 
               size={24} 
               color={isAuthVariant ? "#333" : "#FFFFFF"} 
             />

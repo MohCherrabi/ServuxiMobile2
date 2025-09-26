@@ -1,8 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   FlatList,
+  I18nManager,
   Image,
   Modal,
   ScrollView,
@@ -13,6 +15,7 @@ import {
   View
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LanguageToggle from '../../src/components/LanguageToggle';
 import { usePermissions } from '../../src/hooks/usePermissions';
 import { apiService, handleApiResponse } from '../../src/services/apiService';
 import { intelligentSearchService } from '../../src/services/intelligentSearchService';
@@ -22,12 +25,14 @@ const logo = require('../../assets/images/servuxiLogo.png');
 export default function SearchScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { t, i18n } = useTranslation();
   const { isAuthenticated, isClient, isProvider, canBrowseServices } = usePermissions();
+  const isRTL = I18nManager.isRTL;
 
   // États pour la recherche
   const [searchText, setSearchText] = useState('');
-  const [selectedCity, setSelectedCity] = useState('Ville');
-  const [selectedCategory, setSelectedCategory] = useState('Catégorie');
+  const [selectedCity, setSelectedCity] = useState(null); // Store actual city value
+  const [selectedCategory, setSelectedCategory] = useState(null); // Store actual category value
   const [showCityModal, setShowCityModal] = useState(false);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [showFiltersModal, setShowFiltersModal] = useState(false);
@@ -51,6 +56,7 @@ export default function SearchScreen() {
     // Charger les données depuis le JSON
     loadDataFromAPIs();
   }, []);
+
 
   const loadDataFromAPIs = async () => {
     setLoading(true);
@@ -169,18 +175,34 @@ export default function SearchScreen() {
     router.push('/notifications');
   };
 
+  // Helper functions to get display text
+  const getCityDisplayText = () => {
+    return selectedCity || t('city');
+  };
+
+  const getCategoryDisplayText = () => {
+    return selectedCategory || t('category');
+  };
+
+
   return (
     <View style={styles.container}>
       {/* Header personnalisé */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+      <View style={[styles.header, { 
+        paddingTop: insets.top + 10,
+        flexDirection: isRTL ? 'row-reverse' : 'row'
+      }]}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+          <Ionicons name={isRTL ? "arrow-forward" : "arrow-back"} size={24} color="#FFFFFF" />
         </TouchableOpacity>
         
         <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logo} />
         </View>
         
+        {/* Language Toggle */}
+        <LanguageToggle />
+
         <TouchableOpacity style={styles.notificationButton} onPress={handleNotificationPress}>
           <Ionicons name="notifications-outline" size={24} color="#333" />
           <View style={styles.notificationDot} />
@@ -196,7 +218,7 @@ export default function SearchScreen() {
             <Ionicons name="search" size={20} color="#999" style={styles.searchIcon} />
             <TextInput
               style={styles.searchInput}
-              placeholder="Trouver des services"
+              placeholder={t('findServices')}
               value={searchText}
               onChangeText={handleSearchTextChange}
               onSubmitEditing={handleSearch}
@@ -207,7 +229,7 @@ export default function SearchScreen() {
           {/* Suggestions de recherche */}
           {searchSuggestions.length > 0 && (
             <View style={styles.suggestionsContainer}>
-              <Text style={styles.suggestionsTitle}>Suggestions</Text>
+              <Text style={styles.suggestionsTitle}>{t('suggestions')}</Text>
               {searchSuggestions.map((suggestion, index) => (
                 <TouchableOpacity
                   key={index}
@@ -240,14 +262,14 @@ export default function SearchScreen() {
                 style={styles.dropdown}
                 onPress={() => setShowCityModal(true)}
               >
-                <Text style={[styles.dropdownText, selectedCity === 'Ville' && styles.placeholderText]}>
-                  {selectedCity}
+                <Text style={[styles.dropdownText, !selectedCity && styles.placeholderText]}>
+                  {getCityDisplayText()}
                 </Text>
                 <View style={styles.dropdownIcons}>
-                  {selectedCity !== 'Ville' && (
+                  {selectedCity && (
                     <TouchableOpacity 
                       style={styles.resetIcon}
-                      onPress={() => setSelectedCity('Ville')}
+                      onPress={() => setSelectedCity(null)}
                     >
                       <Ionicons name="close-circle" size={16} color="#FF6B6B" />
                     </TouchableOpacity>
@@ -263,14 +285,14 @@ export default function SearchScreen() {
                 style={styles.dropdown}
                 onPress={() => setShowCategoryModal(true)}
               >
-                <Text style={[styles.dropdownText, selectedCategory === 'Catégorie' && styles.placeholderText]}>
-                  {selectedCategory}
+                <Text style={[styles.dropdownText, !selectedCategory && styles.placeholderText]}>
+                  {getCategoryDisplayText()}
                 </Text>
                 <View style={styles.dropdownIcons}>
-                  {selectedCategory !== 'Catégorie' && (
+                  {selectedCategory && (
                     <TouchableOpacity 
                       style={styles.resetIcon}
-                      onPress={() => setSelectedCategory('Catégorie')}
+                      onPress={() => setSelectedCategory(null)}
                     >
                       <Ionicons name="close-circle" size={16} color="#FF6B6B" />
                     </TouchableOpacity>
@@ -282,18 +304,18 @@ export default function SearchScreen() {
           </View>
 
           {/* Reset All Button */}
-          {(selectedCity !== 'Ville' || selectedCategory !== 'Catégorie' || filters.minRating > 0 || filters.minExperience > 0 || filters.availableNow) && (
+          {(selectedCity || selectedCategory || filters.minRating > 0 || filters.minExperience > 0 || filters.availableNow) && (
             <TouchableOpacity 
               style={styles.resetAllButton}
               onPress={() => {
-                setSelectedCity('Ville');
-                setSelectedCategory('Catégorie');
+                setSelectedCity(null);
+                setSelectedCategory(null);
                 resetFilters();
                 setSearchResults([]);
               }}
             >
               <Ionicons name="refresh-outline" size={16} color="#FF6B6B" />
-              <Text style={styles.resetAllText}>Réinitialiser tous les filtres</Text>
+              <Text style={styles.resetAllText}>{t('resetAllFilters')}</Text>
             </TouchableOpacity>
           )}
 
@@ -309,7 +331,7 @@ export default function SearchScreen() {
               onPress={() => setShowFiltersModal(true)}
             >
               <Ionicons name="options-outline" size={16} color="#FFC700" />
-              <Text style={styles.filterButtonText}>Filtres</Text>
+              <Text style={styles.filterButtonText}>{t('filters')}</Text>
               {(filters.minRating > 0 || filters.minExperience > 0 || filters.availableNow) && (
                 <View style={styles.filterActiveDot} />
               )}
@@ -321,7 +343,7 @@ export default function SearchScreen() {
             >
               <Ionicons name="time-outline" size={16} color={filters.availableNow ? "#FFF" : "#FFC700"} />
               <Text style={[styles.filterButtonText, filters.availableNow && styles.filterButtonTextActive]}>
-                Disponible
+                {t('available')}
               </Text>
             </TouchableOpacity>
 
@@ -371,7 +393,7 @@ export default function SearchScreen() {
             <View style={styles.aiSuggestionsContainer}>
               <View style={styles.aiSuggestionsHeader}>
                 <Ionicons name="bulb-outline" size={16} color="#FFC700" />
-                <Text style={styles.aiSuggestionsTitle}>Suggestions IA</Text>
+                <Text style={styles.aiSuggestionsTitle}>{t('aiSuggestions')}</Text>
               </View>
               {categorySuggestions.slice(0, 3).map((suggestion, index) => (
                 <TouchableOpacity
@@ -399,7 +421,7 @@ export default function SearchScreen() {
         {/* Résultats de recherche */}
         {searchResults.length > 0 && (
           <View style={styles.resultsSection}>
-            <Text style={styles.resultsTitle}>Résultats de recherche</Text>
+            <Text style={styles.resultsTitle}>{t('searchResults')}</Text>
             
             {searchResults.map((provider, index) => (
               <TouchableOpacity
@@ -439,17 +461,17 @@ export default function SearchScreen() {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Sélectionner une ville</Text>
+              <Text style={styles.modalTitle}>{t('selectCity')}</Text>
               <View style={styles.modalHeaderButtons}>
-                {selectedCity !== 'Ville' && (
+                {selectedCity && (
                   <TouchableOpacity 
                     style={styles.modalResetButton}
                     onPress={() => {
-                      setSelectedCity('Ville');
+                      setSelectedCity(null);
                       setShowCityModal(false);
                     }}
                   >
-                    <Text style={styles.modalResetText}>Reset</Text>
+                    <Text style={styles.modalResetText}>{t('reset')}</Text>
                   </TouchableOpacity>
                 )}
                 <TouchableOpacity onPress={() => setShowCityModal(false)}>
@@ -485,17 +507,17 @@ export default function SearchScreen() {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Sélectionner une catégorie</Text>
+              <Text style={styles.modalTitle}>{t('selectCategory')}</Text>
               <View style={styles.modalHeaderButtons}>
-                {selectedCategory !== 'Catégorie' && (
+                {selectedCategory && (
                   <TouchableOpacity 
                     style={styles.modalResetButton}
                     onPress={() => {
-                      setSelectedCategory('Catégorie');
+                      setSelectedCategory(null);
                       setShowCategoryModal(false);
                     }}
                   >
-                    <Text style={styles.modalResetText}>Reset</Text>
+                    <Text style={styles.modalResetText}>{t('reset')}</Text>
                   </TouchableOpacity>
                 )}
                 <TouchableOpacity onPress={() => setShowCategoryModal(false)}>
@@ -531,7 +553,7 @@ export default function SearchScreen() {
         <View style={styles.modalOverlay}>
           <View style={styles.filtersModalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Filtres Intelligents</Text>
+              <Text style={styles.modalTitle}>{t('intelligentFilters')}</Text>
               <TouchableOpacity onPress={() => setShowFiltersModal(false)}>
                 <Ionicons name="close" size={24} color="#333" />
               </TouchableOpacity>
@@ -540,7 +562,7 @@ export default function SearchScreen() {
             <ScrollView showsVerticalScrollIndicator={false}>
               {/* Filtre Notes */}
               <View style={styles.filterSection}>
-                <Text style={styles.filterSectionTitle}>Notes minimum</Text>
+                <Text style={styles.filterSectionTitle}>{t('minimumRating')}</Text>
                 <View style={styles.ratingFilterContainer}>
                   {[0, 3, 4, 4.5].map(rating => (
                     <TouchableOpacity
@@ -564,7 +586,7 @@ export default function SearchScreen() {
 
               {/* Filtre Ancienneté */}
               <View style={styles.filterSection}>
-                <Text style={styles.filterSectionTitle}>Ancienneté minimum</Text>
+                <Text style={styles.filterSectionTitle}>{t('minimumExperience')}</Text>
                 <View style={styles.experienceFilterContainer}>
                   {[0, 1, 3, 5, 10].map(years => (
                     <TouchableOpacity
@@ -585,7 +607,7 @@ export default function SearchScreen() {
 
               {/* Filtre Distance */}
               <View style={styles.filterSection}>
-                <Text style={styles.filterSectionTitle}>Distance maximum</Text>
+                <Text style={styles.filterSectionTitle}>{t('maximumDistance')}</Text>
                 <View style={styles.distanceFilterContainer}>
                   <Text style={styles.distanceValue}>{filters.maxDistance} km</Text>
                   <View style={styles.distanceSliderContainer}>
@@ -607,7 +629,7 @@ export default function SearchScreen() {
 
               {/* Options de tri */}
               <View style={styles.filterSection}>
-                <Text style={styles.filterSectionTitle}>Trier par</Text>
+                <Text style={styles.filterSectionTitle}>{t('sortBy')}</Text>
                 <View style={styles.sortOptionsContainer}>
                   {[
                     { key: 'relevance', label: 'Pertinence', icon: 'search-outline' },
@@ -645,7 +667,7 @@ export default function SearchScreen() {
                 style={styles.resetFiltersButton}
                 onPress={resetFilters}
               >
-                <Text style={styles.resetFiltersText}>Réinitialiser</Text>
+                <Text style={styles.resetFiltersText}>{t('reset')}</Text>
               </TouchableOpacity>
               
               <TouchableOpacity 
@@ -655,7 +677,7 @@ export default function SearchScreen() {
                   handleSearch();
                 }}
               >
-                <Text style={styles.applyFiltersText}>Appliquer</Text>
+                <Text style={styles.applyFiltersText}>{t('apply')}</Text>
               </TouchableOpacity>
             </View>
           </View>

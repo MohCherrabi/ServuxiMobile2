@@ -57,7 +57,7 @@ function RootLayoutNav() {
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="provider/[id]" options={{ headerShown: true }} />
+          <Stack.Screen name="provider/[id]" options={{ headerShown: false }} />
           <Stack.Screen name="messages/[id]" options={{ headerShown: true }} />
           <Stack.Screen name="notifications" options={{ headerShown: true }} />
           <Stack.Screen name="profile/edit" options={{ headerShown: true }} />

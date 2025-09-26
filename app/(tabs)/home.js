@@ -1,7 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
+  I18nManager,
   Image,
   ScrollView,
   StyleSheet,
@@ -10,6 +12,7 @@ import {
   View
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LanguageToggle from '../../src/components/LanguageToggle';
 import { usePermissions } from '../../src/hooks/usePermissions';
 import { apiService, handleApiResponse } from '../../src/services/apiService';
 
@@ -18,7 +21,9 @@ const logo = require('../../assets/images/servuxiLogo.png');
 export default function HomeScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { t, i18n } = useTranslation();
   const { isAuthenticated, isClient, isProvider, canBrowseServices } = usePermissions();
+  const isRTL = I18nManager.isRTL;
 
   // États pour les données - EN ATTENTE DE VOS APIs
   const [popularServices, setPopularServices] = useState([]);
@@ -64,12 +69,13 @@ export default function HomeScreen() {
 
   const handleProviderPress = (provider) => {
     console.log('Provider selected:', provider);
-    router.push(`/provider/${provider.id}`);
+    router.push(`/provider/${provider.user_id}`);
   };
 
   const handleNotificationPress = () => {
     router.push('/notifications');
   };
+
 
   const handleOffersPress = () => {
     router.push('/offers');
@@ -78,15 +84,22 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       {/* Header personnalisé */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+      <View style={[styles.header, { 
+        paddingTop: insets.top + 10,
+        flexDirection: isRTL ? 'row-reverse' : 'row'
+      }]}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+          <Ionicons name={isRTL ? "arrow-forward" : "arrow-back"} size={24} color="#FFFFFF" />
         </TouchableOpacity>
         
         <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logo} />
         </View>
         
+        {/* Language Toggle */}
+        <LanguageToggle />
+
+        {/* Bouton notifications */}
         <TouchableOpacity style={styles.notificationButton} onPress={handleNotificationPress}>
           <Ionicons name="notifications-outline" size={24} color="#333" />
           <View style={styles.notificationDot} />
@@ -105,7 +118,7 @@ export default function HomeScreen() {
             <View style={styles.offersIconContainer}>
               <Ionicons name="gift" size={24} color="#FFC700" />
             </View>
-            <Text style={styles.offersButtonText}>Utilisations des offres</Text>
+            <Text style={styles.offersButtonText}>{t('discoverExperts')}</Text>
             <View style={styles.offersArrowContainer}>
               <Ionicons name="chevron-forward" size={20} color="#FFF" />
             </View>
@@ -116,13 +129,13 @@ export default function HomeScreen() {
         {/* Section Services populaires */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Services populaires</Text>
-            <Text style={styles.seeAllText}>Tout voir</Text>
+            <Text style={styles.sectionTitle}>{t('popularServices')}</Text>
+            <Text style={styles.seeAllText}>{t('seeMore')}</Text>
           </View>
           
           {popularServices.length === 0 ? (
             <View style={styles.emptyState}>
-              <Text style={styles.emptyText}>En attente des données API...</Text>
+              <Text style={styles.emptyText}>{t('loading')}</Text>
             </View>
           ) : (
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -153,13 +166,13 @@ export default function HomeScreen() {
         {/* Section Récemment ajoutées */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Récemment ajoutées</Text>
-            <Text style={styles.seeAllText}>Tout voir</Text>
+            <Text style={styles.sectionTitle}>{t('recentlyAdded')}</Text>
+            <Text style={styles.seeAllText}>{t('seeMore')}</Text>
           </View>
           
           {recentlyAdded.length === 0 ? (
             <View style={styles.emptyState}>
-              <Text style={styles.emptyText}>En attente des données API...</Text>
+              <Text style={styles.emptyText}>{t('loading')}</Text>
             </View>
           ) : (
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -192,13 +205,13 @@ export default function HomeScreen() {
         {/* Section Inspiré par votre historique - VIDE EN ATTENTE API */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Les prestataires disponibles</Text>
-            <Text style={styles.seeAllText}>Tout voir</Text>
+            <Text style={styles.sectionTitle}>{t('basedOnHistory')}</Text>
+            <Text style={styles.seeAllText}>{t('seeMore')}</Text>
           </View>
           
           {basedOnHistory.length === 0 ? (
             <View style={styles.emptyState}>
-              <Text style={styles.emptyText}>En attente des données API...</Text>
+              <Text style={styles.emptyText}>{t('loading')}</Text>
             </View>
           ) : (
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>

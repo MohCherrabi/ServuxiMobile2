@@ -291,13 +291,20 @@
       "address": "25, Boulevard d'Anfa, Casablanca",
       "profile_picture_url": "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "is_verified": true,
+      "cin": "BK123456",
+      "local_boutique": {
+        "has_local": true,
+        "name": "Cabinet Juridique El Fassi",
+        "address": "25, Boulevard d'Anfa, Casablanca",
+        "description": "Cabinet moderne équipé pour recevoir les clients"
+      },
       "main_category": {
         "id": 1308,
         "name": "Droit & Justice"
       },
       "sub_categories": [
         { "id": 1309, "name": "Avocat" },
-        { "id": 1309, "name": "Conseiller juridique" }
+        { "id": 1310, "name": "Conseiller juridique" }
       ],
       "contact": {
         "phone": "0661001122",
@@ -321,10 +328,14 @@
         "dimanche": "Fermé"
       },
       "portfolio": [
-        "https://imagizer.imageshack.com/img922/5835/rP9a2b.jpg",
-        "https://imagizer.imageshack.com/img924/5383/H4Hk6K.jpg"
+        "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
       ],
-      "business_card_url": "https://imagizer.imageshack.com/img923/6756/ro3m2d.jpg",
+      "business_card_url": "https://images.unsplash.com/photo-1704030459056-f31f181a2a4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "rating": {
         "average": 4.9,
         "count": 85

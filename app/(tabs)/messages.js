@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
+    I18nManager,
     Image,
     ScrollView,
     StyleSheet,
@@ -10,12 +11,14 @@ import {
     View
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LanguageToggle from '../../src/components/LanguageToggle';
 
 const logo = require('../../assets/images/servuxiLogo.png');
 
 export default function MessagesScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const isRTL = I18nManager.isRTL;
 
   const handleNotificationPress = () => {
     router.push('/notifications');
@@ -24,15 +27,21 @@ export default function MessagesScreen() {
   return (
     <View style={styles.container}>
       {/* Header personnalisé */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+      <View style={[styles.header, { 
+        paddingTop: insets.top + 10,
+        flexDirection: isRTL ? 'row-reverse' : 'row'
+      }]}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+          <Ionicons name={isRTL ? "arrow-forward" : "arrow-back"} size={24} color="#FFFFFF" />
         </TouchableOpacity>
         
         <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logo} />
         </View>
         
+        {/* Language Toggle */}
+        <LanguageToggle />
+
         <TouchableOpacity style={styles.notificationButton} onPress={handleNotificationPress}>
           <Ionicons name="notifications-outline" size={24} color="#333" />
           <View style={styles.notificationDot} />
