@@ -56,33 +56,36 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: 'Recherche',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'search' : 'search-outline'} color={color} size={24} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="messages"
-        options={{
-          title: 'Messages',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'chatbubbles' : 'chatbubbles-outline'} color={color} size={24} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profil',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={24} />
-          ),
-        }}
-      />
+             <Tabs.Screen
+               name="search"
+               options={{
+                 title: 'Recherche',
+                 headerShown: false, // Custom header
+                 tabBarIcon: ({ color, focused }) => (
+                   <Ionicons name={focused ? 'search' : 'search-outline'} color={color} size={24} />
+                 ),
+               }}
+             />
+             <Tabs.Screen
+               name="messages"
+               options={{
+                 title: 'Messages',
+                 headerShown: false, // Custom header
+                 tabBarIcon: ({ color, focused }) => (
+                   <Ionicons name={focused ? 'chatbubbles' : 'chatbubbles-outline'} color={color} size={24} />
+                 ),
+               }}
+             />
+             <Tabs.Screen
+               name="profile"
+               options={{
+                 title: 'Profil',
+                 headerShown: false, // Custom header
+                 tabBarIcon: ({ color, focused }) => (
+                   <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={24} />
+                 ),
+               }}
+             />
     </Tabs>
   );
 }

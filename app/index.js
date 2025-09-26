@@ -1,16 +1,99 @@
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import TransitionHeader from '../src/components/TransitionHeader';
+import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import Animated, {
+  Easing,
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming
+} from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const logo = require('../assets/images/servuxiLogo.png');
 
 
 export default function LanguageSelectionScreen() {
   const router = useRouter();
   const { i18n } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const { height: screenHeight } = useWindowDimensions();
+  // Height of the header block so header + content are visually centered
+  const headerHeight = Math.max(insets.top + 120, Math.floor(screenHeight * 0.45));
   const [arabicPressed, setArabicPressed] = useState(false);
   const [frenchPressed, setFrenchPressed] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // Animation values
+  const splashAnimation = useSharedValue(1); // 1 = splash visible, 0 = content visible
+  const headerAnimation = useSharedValue(0);
+  const contentAnimation = useSharedValue(0);
+
+  useEffect(() => {
+    // Après 2.5 secondes, commencer la transition
+    const timer = setTimeout(() => {
+      // 1. Logo remonte vers le header et fond change
+      splashAnimation.value = withTiming(0, {
+        duration: 1200,
+        easing: Easing.out(Easing.cubic),
+      });
+      
+      // 2. Header background et autres éléments apparaissent
+      headerAnimation.value = withDelay(400, withTiming(1, {
+        duration: 800,
+        easing: Easing.out(Easing.cubic),
+      }));
+      
+      // 3. Contenu apparaît après que le logo soit en place
+      contentAnimation.value = withDelay(800, withTiming(1, {
+        duration: 1000,
+        easing: Easing.out(Easing.cubic),
+      }));
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const logoAnimatedStyle = useAnimatedStyle(() => {
+    // Décalage nécessaire pour passer du centre d'écran au centre du header
+    const deltaToHeaderCenter = (screenHeight - headerHeight) / 2;
+    const translateY = interpolate(
+      splashAnimation.value,
+      [1, 0],
+      [0, -deltaToHeaderCenter]
+    );
+
+    const scale = interpolate(
+      splashAnimation.value,
+      [1, 0],
+      [1.2, 0.7]
+    );
+
+    return {
+      transform: [{ translateY }, { scale }],
+    };
+  });
+
+  const backgroundAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      backgroundColor: splashAnimation.value > 0.5 ? '#FFC700' : '#fff',
+    };
+  });
+
+  const headerElementsAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: headerAnimation.value,
+    };
+  });
+
+  const contentAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: contentAnimation.value,
+      transform: [{ translateY: (1 - contentAnimation.value) * 50 }],
+    };
+  });
 
   const handleLanguageSelect = (lang) => {
     // 1. Déclencher l'animation de transition
@@ -29,15 +112,27 @@ export default function LanguageSelectionScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <Animated.View style={[styles.container, backgroundAnimatedStyle]}>
+      <StatusBar barStyle="light-content" backgroundColor="#FFC700" />
       
-      <TransitionHeader 
-        showBackButton={false} 
-        startTransition={isTransitioning}
-      />
+      {/* Header background - apparaît progressivement */}
+      <Animated.View style={[
+        styles.headerBackground, 
+        headerElementsAnimatedStyle,
+        { height: headerHeight, paddingTop: insets.top }
+      ]} />
+      
+      {/* Logo animé - du centre vers position header */}
+      <Animated.View style={[styles.logoContainer, logoAnimatedStyle]}>
+        <Image source={logo} style={styles.logo} />
+      </Animated.View>
 
-      <View style={styles.contentContainer}>
+      {/* Contenu animé - apparaît à la fin */}
+      <Animated.View style={[
+        styles.contentContainer, 
+        contentAnimatedStyle,
+        { paddingTop: headerHeight + 24 }
+      ]}>
         <Text style={styles.title}>L'APPLICATION</Text>
         <Text style={styles.subtitle}>QUI VOUS CONNECTE EN UN CLIC !</Text>
 
@@ -65,20 +160,48 @@ export default function LanguageSelectionScreen() {
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
-    </View>
+      </Animated.View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFC700', // Fond animé jaune → blanc
+  },
+  headerBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 120, // Sera overridé dynamiquement
+    backgroundColor: '#FFC700',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  logoContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    marginTop: -50, // Centré initialement
+  },
+  logo: {
+    width: 200,
+    height: 100,
+    resizeMode: 'contain',
   },
   contentContainer: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: '15%',
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 24,
@@ -92,8 +215,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   buttonContainer: {
-    marginTop: '15%',
-    width: '80%',
+    marginTop: 50,
+    width: '100%',
   },
   button: {
     backgroundColor: '#EAEAEA',

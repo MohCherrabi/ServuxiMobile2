@@ -1,0 +1,262 @@
+{
+    "homeScreen": {
+      "popularServices": [
+        {
+          "category_id": 1319,
+          "name": "Plombier",
+          "icon_url": "https://cdn-icons-png.flaticon.com/512/1995/1995518.png"
+        },
+        {
+          "category_id": 1271,
+          "name": "Médecin Généraliste",
+          "icon_url": "https://cdn-icons-png.flaticon.com/512/2782/2782065.png"
+        },
+        {
+          "category_id": 1315,
+          "name": "Graphic Designer",
+          "icon_url": "https://cdn-icons-png.flaticon.com/512/1055/1055687.png"
+        },
+        {
+          "category_id": 1274,
+          "name": "Soutien Scolaire",
+          "icon_url": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+        },
+        {
+          "category_id": 1319,
+          "name": "Électricien",
+          "icon_url": "https://cdn-icons-png.flaticon.com/512/1995/1995518.png"
+        },
+        {
+          "category_id": 1272,
+          "name": "Kinésithérapeute",
+          "icon_url": "https://cdn-icons-png.flaticon.com/512/2782/2782065.png"
+        }
+      ],
+      "featuredProviders": [
+        {
+          "user_id": 101,
+          "name": "Fatima Zahra El Fassi",
+          "specialty": "Avocate au barreau de Casablanca",
+          "city": "Casablanca",
+          "profile_picture_url": "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          "rating": {
+            "average": 4.9,
+            "count": 85
+          },
+          "is_verified": true,
+          "bio_snippet": "Spécialisée en droit des affaires et immobilier. Plus de 15 ans d'expérience pour vous conseiller..."
+        },
+        {
+          "user_id": 205,
+          "name": "Amine Bennani",
+          "specialty": "Développeur Web et Mobile",
+          "city": "Rabat",
+          "profile_picture_url": "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          "rating": {
+            "average": 5,
+            "count": 120
+          },
+          "is_verified": true,
+          "bio_snippet": "Création d'applications modernes et performantes avec Laravel, Vue.js et Flutter..."
+        },
+        {
+          "user_id": 310,
+          "name": "Dr. Kenza Alaoui",
+          "specialty": "Pédiatre",
+          "city": "Marrakech",
+          "profile_picture_url": "https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          "rating": {
+            "average": 4.8,
+            "count": 213
+          },
+          "is_verified": false,
+          "bio_snippet": "Suivi du développement de l'enfant, urgences pédiatriques et conseils aux parents..."
+        }
+      ]
+    },
+    "providerDetails": {
+      "user_id": 101,
+      "name": "Fatima Zahra El Fassi",
+      "date_of_birth": "1980-05-15",
+      "city": "Casablanca",
+      "address": "25, Boulevard d'Anfa, Casablanca",
+      "profile_picture_url": "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "is_verified": true,
+      "main_category": {
+        "id": 1308,
+        "name": "Droit & Justice"
+      },
+      "sub_categories": [
+        { "id": 1309, "name": "Avocat" },
+        { "id": 1309, "name": "Conseiller juridique" }
+      ],
+      "contact": {
+        "phone": "0661001122",
+        "fixed_phone": "0522010203",
+        "email": "fz.elfassi.avocat@email.com",
+        "website": "https://www.linkedin.com/in/fatima-zahra-el-fassi-a5225118b/"
+      },
+      "bio": "Avocate au barreau de Casablanca, spécialisée en droit des affaires et droit immobilier depuis plus de 15 ans. J'accompagne les entreprises et les particuliers dans toutes leurs démarches juridiques, de la consultation à la représentation devant les tribunaux.",
+      "years_of_experience": "15+",
+      "subscription": {
+        "days_remaining": 85,
+        "plan_name": "Abonnement 12 mois"
+      },
+      "working_hours": {
+        "lundi": "09:00 - 18:00",
+        "mardi": "09:00 - 18:00",
+        "mercredi": "09:00 - 18:00",
+        "jeudi": "09:00 - 18:00",
+        "vendredi": "09:00 - 13:00",
+        "samedi": "Fermé",
+        "dimanche": "Fermé"
+      },
+      "portfolio": [
+        "https://imagizer.imageshack.com/img922/5835/rP9a2b.jpg",
+        "https://imagizer.imageshack.com/img924/5383/H4Hk6K.jpg"
+      ],
+      "business_card_url": "https://imagizer.imageshack.com/img923/6756/ro3m2d.jpg",
+      "rating": {
+        "average": 4.9,
+        "count": 85
+      },
+      "reviews": [
+        {
+          "client_name": "Ahmed T.",
+          "rating": 5,
+          "comment": "Très professionnelle et à l'écoute. M'a parfaitement conseillé pour la création de ma société.",
+          "date": "2025-09-15"
+        },
+        {
+          "client_name": "Salma K.",
+          "rating": 5,
+          "comment": "Excellente avocate, a su défendre mes intérêts avec brio dans une affaire complexe.",
+          "date": "2025-08-02"
+        }
+      ],
+      "gigs": [
+        {
+          "id": 1,
+          "title": "Conseil Juridique en Droit des Sociétés (Obligatoire)",
+          "description": "Assistance pour la création d'entreprise (SARL, SA), rédaction de statuts, pactes d'associés et formalités au registre de commerce."
+        },
+        {
+          "id": 2,
+          "title": "Assistance en Contentieux Commercial",
+          "description": "Représentation devant le Tribunal de Commerce pour les litiges liés aux contrats, recouvrement de créances, concurrence déloyale."
+        },
+        {
+          "id": 3,
+          "title": "Accompagnement en Transactions Immobilières",
+          "description": "Vérification des titres de propriété, rédaction de compromis de vente, assistance lors de la signature de l'acte notarié."
+        }
+      ]
+    },
+    "categories": [
+      {
+        "id": 1270,
+        "name": "Santé",
+        "sub_categories": [
+          {
+            "id": 1271,
+            "name": "Médecins",
+            "sub_categories": [
+              { "id": 1, "name": "Généraliste" },
+              { "id": 2, "name": "Cardiologue" },
+              { "id": 3, "name": "Pédiatre" }
+            ]
+          },
+          {
+            "id": 1272,
+            "name": "Paramédical",
+            "sub_categories": [
+              { "id": 4, "name": "Infirmier/e" },
+              { "id": 5, "name": "Kinésithérapeute" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1318,
+        "name": "Travaux & Services à Domicile",
+        "sub_categories": [
+          {
+            "id": 1319,
+            "name": "Rénovation & Construction",
+            "sub_categories": [
+              { "id": 6, "name": "Plombier" },
+              { "id": 7, "name": "Électricien" },
+              { "id": 8, "name": "Peintre en bâtiment" }
+            ]
+          },
+          {
+            "id": 1320,
+            "name": "Entretien & Déménagement",
+            "sub_categories": [
+              { "id": 9, "name": "Femme de ménage" },
+              { "id": 10, "name": "Nounou (baby-sitter)" }
+            ]
+          }
+        ]
+      }
+    ],
+    "cities": [
+      "Agadir",
+      "Al Hoceïma",
+      "Azemmour",
+      "Azrou",
+      "Azzaba",
+      "Aïn Harrouda",
+      "Ben Guerir",
+      "Beni Mellal",
+      "Berkane",
+      "Berrechid",
+      "Casablanca",
+      "Chefchaouen",
+      "Dcheira El Jihadia",
+      "El Jadida",
+      "Errachidia",
+      "Essaouira",
+      "Fquih Ben Salah",
+      "Fès",
+      "Guelmim",
+      "Guercif",
+      "Inezgane",
+      "Khemisset",
+      "Khouribga",
+      "Ksar El Kebir",
+      "Kénitra",
+      "Larache",
+      "M'diq",
+      "Marrakech",
+      "Martil",
+      "Meknès",
+      "Mohammédia",
+      "Moulay Bousselham",
+      "Nador",
+      "Ouarzazate",
+      "Oujda",
+      "Oulad Ayad",
+      "Oulad Teima",
+      "Rabat",
+      "Safi",
+      "Salé",
+      "Settat",
+      "Sidi Bennour",
+      "Sidi Ifni",
+      "Sidi Kacem",
+      "Sidi Slimane",
+      "Skhirat",
+      "Souk El Arbaa",
+      "Tan-Tan",
+      "Tanger",
+      "Taourirt",
+      "Taroudant",
+      "Taza",
+      "Temara",
+      "Tiflet",
+      "Tétouan",
+      "Youssoufia",
+      "Zagora"
+    ]
+  }
